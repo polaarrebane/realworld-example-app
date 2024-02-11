@@ -1,0 +1,42 @@
+name: ApiDog
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2
+          coverage: xdebug
+      - name: Install Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install Apidog CLI
+        run: npm install -g apidog-cli
+      - name: Configure Laravel
+        run: |
+          cp .env.example .env
+          touch database/database.sqlite
+          php artisan key:generate
+          php artisan jwt:secret
+          php artisan serve &
+          php artisan migrate
+      - name: Run ApiDog
+        run: apidog run tests/Api/conduit.apidog-cli.json -r html,cli --out-file apidog_report
+      - name: Save tests output as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: apidog_report
+          path: apidog-reports/apidog_report.html
