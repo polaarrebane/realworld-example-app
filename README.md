@@ -37,3 +37,12 @@ touch .github/workflows/pest.yml
 touch .github/workflows/apidog.yml
 touch .github/workflows/lint.yml
 ```
+
+### User
+```bash
+touch tests/Utils.php
+php artisan pest:test User/RegisterUserTest.php
+php artisan pest:test User/LoginUserTest.php
+php artisan pest:test User/GetUserTest.php
+php artisan pest:test User/UpdateUserTest.php
+```

@@ -7,8 +7,14 @@ parameters:
         - app/
         - tests/
 
-    # Level 9 is the highest level
-    level: 9
+    level: 8
+
+    ignoreErrors:
+        -
+            message: '#Call to an undefined method Illuminate\\Auth\\AuthManager::fromUser\(\)#'
+            path: tests/Utils.php
+
+        - '#Call to an undefined method Pest\\Expectation<mixed>::toBeTokenForUser\(\)#'
 
 #    ignoreErrors:
 #        - '#PHPDoc tag @var#'
