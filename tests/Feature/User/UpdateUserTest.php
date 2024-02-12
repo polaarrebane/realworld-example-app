@@ -9,8 +9,7 @@ use function Pest\Laravel\putJson;
 
 const API_USER_UPDATE = 'api.user.update';
 
-it('should update user profile information when a valid token and valid data are provided', function () {
-    $rawUserRequest = rawUserUpdateRequest();
+it('should update user profile information when a valid token and valid data are provided', function ($rawUserRequest) {
     $user = User::factory()->create();
 
     putJsonAsUser(
@@ -25,12 +24,19 @@ it('should update user profile information when a valid token and valid data are
 
     $user->refresh();
 
-    expect($user->username)->toBe($rawUserRequest['username'])
-        ->and($user->email)->toBe($rawUserRequest['email'])
-        ->and($user->bio)->toBe($rawUserRequest['bio'])
-        ->and($user->image)->toBe($rawUserRequest['image'])
-        ->and(Hash::check($rawUserRequest['password'], $user->password))->toBeTrue();
-});
+    expect($user->username)->toBe($rawUserRequest['username'] ?? $user->username)
+        ->and($user->email)->toBe($rawUserRequest['email'] ?? $user->email)
+        ->and($user->bio)->toBe($rawUserRequest['bio'] ?? $user->bio)
+        ->and($user->image)->toBe($rawUserRequest['image'] ?? $user->image)
+        ->and(! array_key_exists('password', $rawUserRequest) || Hash::check($rawUserRequest['password'], $user->password))->toBeTrue();
+})->with([
+    'All fields' => [rawUserUpdateRequest()],
+    'Username' => [['username' => rawUserUpdateRequest()['username']]],
+    'Email' => [['email' => rawUserUpdateRequest()['email']]],
+    'Password' => [['password' => rawUserUpdateRequest()['password']]],
+    'Bio' => [['bio' => rawUserUpdateRequest()['bio']]],
+    'Image' => [['image' => rawUserUpdateRequest()['image']]],
+]);
 
 it('should return an error if no token is provided', function () {
     putJson(route(API_USER_UPDATE))->assertUnauthorized();

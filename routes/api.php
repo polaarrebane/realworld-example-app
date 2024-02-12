@@ -18,5 +18,6 @@ Route::namespace('Api')
         Route::namespace('User')->name('user.')->prefix('user')
             ->middleware('protected')->group(function () {
                 Route::get('', [UserController::class, 'get'])->name('get');
+                Route::put('', [UserController::class, 'update'])->name('update');
             });
     });

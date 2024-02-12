@@ -77,9 +77,17 @@ php artisan make:provider JwtAuthServiceProvider#update config/app.php add
 #update config/app.php add provider
 
 php artisan make:middleware JwtAuthenticate
-#update app/Http/Kernel.php add protected alias
+#update app/Http/Kernel.php add 'protected' alias
 
 #update App/Http/Controllers/UserController add @get
 #update routes/api.php
 ./vendor/bin/pest --filter "GetUserTest"
+
+#--- UpdateUser
+php artisan make:data UpdateUser -N Http/RequestData -s RequestData
+#update App/Http/Controllers/UserController add @update
+#update routes/api.php
+./vendor/bin/pest --filter "UpdateUserTest"
+
+./vendor/bin/pest --group "User"
 ```

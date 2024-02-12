@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\RequestData\LoginUserRequestData;
 use App\Http\RequestData\RegisterUserRequestData;
+use App\Http\RequestData\UpdateUserRequestData;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
@@ -32,7 +33,7 @@ class UserController extends Controller
     {
         $requestData = LoginUserRequestData::from($request);
 
-        if (! $token = auth()->attempt($requestData->all())) {
+        if (! auth()->attempt($requestData->all())) {
             throw new AuthenticationException('Unauthenticated.');
         }
 
@@ -42,5 +43,21 @@ class UserController extends Controller
     public function get(): UserResource
     {
         return new UserResource(auth('api')->user());
+    }
+
+    public function update(Request $request): UserResource
+    {
+        $requestData = UpdateUserRequestData::from($request);
+
+        /** @var User $user */
+        $user = auth()->user();
+        $user->update($requestData->all());
+
+        if (is_string($requestData->password)) {
+            $user->password = $requestData->password;
+            $user->save();
+        }
+
+        return new UserResource($user);
     }
 }
