@@ -8,3 +8,4 @@ uses(
 )->in('Feature');
 
 uses()->group('User')->in('Feature/User/*');
+uses()->group('Article')->in('Feature/Article/*');

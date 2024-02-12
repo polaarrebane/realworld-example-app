@@ -91,3 +91,18 @@ php artisan make:data UpdateUser -N Http/RequestData -s RequestData
 
 ./vendor/bin/pest --group "User"
 ```
+
+### Article
+```bash
+composer require -W spatie/laravel-sluggable
+php artisan make:model -m Article 
+php artisan make:model -m Tag
+php artisan make:model Comment
+#update App/Models/User::class
+
+php artisan make:migration CreateFollowTable
+php artisan make:migration CreateArticleTagPivotTable
+
+php artisan make:factory ArticleFactory
+php artisan make:factory TagFactory
+```

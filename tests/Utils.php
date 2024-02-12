@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Article;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Testing\TestResponse;
 
 use function Pest\Laravel\deleteJson;
@@ -51,6 +53,7 @@ function deleteJsonAsUser(string $route, User $user, array $data = [], array $he
 {
     return deleteJson($route, $data, $headers + authHeaderForUser($user));
 }
+
 //</editor-fold>
 
 //<editor-fold desc="User">
@@ -60,5 +63,65 @@ expect()->extend('toBeTokenForUser', function (User $user) {
 
     /** @phpstan-ignore-next-line */
     expect(auth('api')->user()->id)->toBe($user->id);
+});
+//</editor-fold>
+
+//<editor-fold desc="Article">
+/**
+ * @return array<string, string|array<string,string>>
+ */
+function articleToArray(Article $article, ?User $author = null): array
+{
+    $author = $author ?? $article->author;
+
+    return [
+        'slug' => (string) $article->slug,
+        'title' => (string) $article->title,
+        'description' => (string) $article->description,
+        'body' => (string) $article->body,
+        'tagList' => $article->tags()->pluck('value')->sort()->values()->toArray(),
+        'createdAt' => (string) $article->created_at->toISOString(),
+        'updatedAt' => (string) $article->updated_at->toISOString(),
+        'favorited' => (string) (auth()->user()?->isFavorited($article) ?? false),
+        'favoritesCount' => (string) $article->favoritesCount,
+        'author' => [
+            'username' => (string) $author->username,
+            'bio' => (string) $author->bio,
+            'image' => (string) $author->image,
+            'following' => (string) (auth()->user()?->isFollowing($author) ?? false),
+        ],
+    ];
+}
+
+expect()->extend('toContainArticles', function (Collection $articles) {
+    $articles
+        ->transform(fn (Article $article) => articleToArray($article))
+        ->each(
+            fn (array $article) => expect($this->value)->toContain($article)
+        );
+
+    return $this;
+});
+
+expect()->extend('notToContainArticles', function (Collection $articles) {
+    $articles
+        ->transform(fn (Article $article) => articleToArray($article))
+        ->each(
+            fn (array $article) => expect($this->value)->not()->toContain($article)
+        );
+
+    return $this;
+});
+
+expect()->extend('toContainFeedForUser', function (User $currentUser, ?int $offset = null, ?int $limit = null) {
+    $articleArray = Article::feed($currentUser)
+        ->skip($offset ?? 0)
+        ->take($limit ?? 20)
+        ->get()
+        ->transform(fn (Article $article) => articleToArray($article)); /** @phpstan-ignore-line */
+    $articleArray
+        ->each(fn (array $article) => expect($this->value)->toContain($article)); /** @phpstan-ignore-line */
+
+    return $this;
 });
 //</editor-fold>

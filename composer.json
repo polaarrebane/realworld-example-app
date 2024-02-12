@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "spatie/laravel-data": "^4.0",
+        "spatie/laravel-sluggable": "^3.5",
         "tymon/jwt-auth": "^2.0"
     },
     "require-dev": {
