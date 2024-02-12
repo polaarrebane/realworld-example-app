@@ -27,5 +27,7 @@ Route::namespace('Api')
             ->middleware('protected')->group(function () {
                 Route::post('', [ArticleController::class, 'store'])->name('create');
                 Route::delete('{article:slug}', [ArticleController::class, 'destroy'])->name('delete');
+
+                Route::post('{article:slug}/favorite', [ArticleController::class, 'favorite'])->name('favorite');
             });
     });

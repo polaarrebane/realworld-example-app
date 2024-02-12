@@ -35,4 +35,14 @@ class ArticleController extends Controller
 
         return response(status: 200);
     }
+
+    public function favorite(Article $article): ArticleResource
+    {
+        /** @var User $currentUser */
+        $currentUser = auth('api')->user();
+
+        $currentUser->favorites()->attach($article);
+
+        return new ArticleResource($article);
+    }
 }

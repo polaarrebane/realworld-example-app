@@ -24,7 +24,7 @@ class ArticleResource extends JsonResource
             'tagList' => $this->resource->tags->pluck('value')->sort()->toArray(),
             'createdAt' => $this->resource->created_at->toISOString(),
             'updatedAt' => $this->resource->updated_at->toISOString(),
-            'favorited' => auth()->user()?->isFavorited($this->resource->resource) ?? false,
+            'favorited' => auth('api')->user()?->isFavorited($this->resource) ?? false,
             'favoritesCount' => $this->resource->favoritesCount,
             'author' => [
                 'username' => $this->resource->author->username,
