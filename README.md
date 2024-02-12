@@ -45,4 +45,24 @@ php artisan pest:test User/RegisterUserTest.php
 php artisan pest:test User/LoginUserTest.php
 php artisan pest:test User/GetUserTest.php
 php artisan pest:test User/UpdateUserTest.php
+
+#update config/auth.php - Tymon JWT Auth
+php artisan jwt:secret
+          
+#update App/Models/User::class
+#update Database/Factories/UserFactory::class
+php artisan make:migration AlterUsersTable
+php artisan make:controller UserController
+php artisan make:resource UserResource
+#update routes/api.php
+
+composer require spatie/laravel-data
+
+php artisan make:data RegisterUser -N RequestData -s RequestData
+
+touch app/Exceptions/RenderValidationExceptionAsJson.php
+#update App\Exceptions\Handler::class
+
+php artisan migrate:fresh
+./vendor/bin/pest --filter "RegisterUserTest"
 ```
