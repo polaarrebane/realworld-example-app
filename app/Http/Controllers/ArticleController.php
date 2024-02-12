@@ -45,4 +45,14 @@ class ArticleController extends Controller
 
         return new ArticleResource($article);
     }
+
+    public function unfavorite(Article $article): ArticleResource
+    {
+        /** @var User $currentUser */
+        $currentUser = auth('api')->user();
+
+        $currentUser->favorites()->detach($article);
+
+        return new ArticleResource($article);
+    }
 }

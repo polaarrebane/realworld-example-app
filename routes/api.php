@@ -29,5 +29,6 @@ Route::namespace('Api')
                 Route::delete('{article:slug}', [ArticleController::class, 'destroy'])->name('delete');
 
                 Route::post('{article:slug}/favorite', [ArticleController::class, 'favorite'])->name('favorite');
+                Route::delete('{article:slug}/favorite', [ArticleController::class, 'unfavorite'])->name('unfavorite');
             });
     });

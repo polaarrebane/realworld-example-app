@@ -137,4 +137,9 @@ touch app/Exceptions/RenderAuthenticationExceptionAsJson.php
 #update App/Http/Controllers/ArticleController add @favorite
 #update routes/api.php
 ./vendor/bin/pest --filter "FavoriteArticleTest"
+
+#--- UnfavoriteArticle
+#update App/Http/Controllers/ArticleController add @unfavorite
+#update routes/api.php
+./vendor/bin/pest --filter "FavoriteArticleTest"
 ```
