@@ -102,6 +102,7 @@ php artisan make:model Comment
 
 php artisan make:migration CreateFollowTable
 php artisan make:migration CreateArticleTagPivotTable
+php artisan make:migration CreateFavoriteTable
 
 php artisan make:factory ArticleFactory
 php artisan make:factory TagFactory
@@ -114,4 +115,13 @@ php artisan pest:test Article/GetArticleBySlugTest.php
 php artisan pest:test Article/GetFeedTest.php
 php artisan pest:test Article/UnfavoriteArticleTest.php
 php artisan pest:test Article/UpdateArticleTest.php
+
+#--- CreateArticle
+php artisan make:data CreateArticle -N Http/RequestData -s RequestData
+php artisan make:controller ArticleController
+php artisan make:resource ArticleResource
+#update routes/api.php
+
+php artisan migrate
+./vendor/bin/pest --filter "CreateArticleTest"
 ```

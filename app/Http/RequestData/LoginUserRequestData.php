@@ -8,7 +8,6 @@ use Spatie\LaravelData\Data;
 class LoginUserRequestData extends Data
 {
     public function __construct(
-
         #[MapInputName('user.email')]
         public readonly string $email,
 
