@@ -105,4 +105,13 @@ php artisan make:migration CreateArticleTagPivotTable
 
 php artisan make:factory ArticleFactory
 php artisan make:factory TagFactory
+
+php artisan pest:test Article/CreateArticleTest.php
+php artisan pest:test Article/DeleteArticleTest.php
+php artisan pest:test Article/FavoriteArticleTest.php
+php artisan pest:test Article/GetAllArticlesTest.php
+php artisan pest:test Article/GetArticleBySlugTest.php
+php artisan pest:test Article/GetFeedTest.php
+php artisan pest:test Article/UnfavoriteArticleTest.php
+php artisan pest:test Article/UpdateArticleTest.php
 ```
