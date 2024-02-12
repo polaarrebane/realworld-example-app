@@ -36,6 +36,11 @@ class UserController extends Controller
             throw new AuthenticationException('Unauthenticated.');
         }
 
-        return new UserResource(auth()->user());
+        return new UserResource(auth('api')->user());
+    }
+
+    public function get(): UserResource
+    {
+        return new UserResource(auth('api')->user());
     }
 }

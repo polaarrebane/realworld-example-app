@@ -14,7 +14,8 @@ class LoginUserRequestData extends Data
 
         #[MapInputName('user.password')]
         public readonly string $password,
-    ) {}
+    ) {
+    }
 
     /**
      * @return array<int|string, string[]>

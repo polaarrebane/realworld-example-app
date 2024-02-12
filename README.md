@@ -63,10 +63,23 @@ php artisan make:data RegisterUser -N Http/RequestData -s RequestData
 touch app/Exceptions/RenderValidationExceptionAsJson.php
 #update App\Exceptions\Handler::class
 
-php artisan migrate:fresh
+php artisan migrate
 ./vendor/bin/pest --filter "RegisterUserTest"
 
+#--- LoginUser
 php artisan make:data LoginUser -N Http/RequestData -s RequestData
 #update App/Http/Controllers/UserController add @login
 #update routes/api.php
+./vendor/bin/pest --filter "LoginUserTest"
+
+#--- GetUser
+php artisan make:provider JwtAuthServiceProvider#update config/app.php add
+#update config/app.php add provider
+
+php artisan make:middleware JwtAuthenticate
+#update app/Http/Kernel.php add protected alias
+
+#update App/Http/Controllers/UserController add @get
+#update routes/api.php
+./vendor/bin/pest --filter "GetUserTest"
 ```

@@ -13,4 +13,10 @@ Route::namespace('Api')
                 Route::post('', [UserController::class, 'store'])->name('create');
                 Route::post('login', [UserController::class, 'login'])->name('login');
             });
+
+        // USER
+        Route::namespace('User')->name('user.')->prefix('user')
+            ->middleware('protected')->group(function () {
+                Route::get('', [UserController::class, 'get'])->name('get');
+            });
     });
