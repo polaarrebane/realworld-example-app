@@ -58,11 +58,15 @@ php artisan make:resource UserResource
 
 composer require spatie/laravel-data
 
-php artisan make:data RegisterUser -N RequestData -s RequestData
+php artisan make:data RegisterUser -N Http/RequestData -s RequestData
 
 touch app/Exceptions/RenderValidationExceptionAsJson.php
 #update App\Exceptions\Handler::class
 
 php artisan migrate:fresh
 ./vendor/bin/pest --filter "RegisterUserTest"
+
+php artisan make:data LoginUser -N Http/RequestData -s RequestData
+#update App/Http/Controllers/UserController add @login
+#update routes/api.php
 ```

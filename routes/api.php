@@ -11,5 +11,6 @@ Route::namespace('Api')
         Route::namespace('Users')->name('users.')->prefix('users')
             ->withoutMiddleware('protected')->group(function () {
                 Route::post('', [UserController::class, 'store'])->name('create');
+                Route::post('login', [UserController::class, 'login'])->name('login');
             });
     });
