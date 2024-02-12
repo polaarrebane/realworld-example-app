@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\RequestData\CreateArticleRequestData;
 use App\Http\Resources\ArticleResource;
+use App\Models\Article;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ArticleController extends Controller
 {
@@ -24,5 +26,13 @@ class ArticleController extends Controller
         $article->tags()->sync($tagIds);
 
         return new ArticleResource($article);
+    }
+
+    public function destroy(Article $article): Response
+    {
+        $this->authorize('delete', $article);
+        $article->delete();
+
+        return response(status: 200);
     }
 }

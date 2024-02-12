@@ -124,4 +124,12 @@ php artisan make:resource ArticleResource
 
 php artisan migrate
 ./vendor/bin/pest --filter "CreateArticleTest"
+
+#--- DeleteArticle
+php artisan make:policy ArticlePolicy
+#update App/Http/Controllers/ArticleController add @destroy
+touch app/Exceptions/RenderAuthenticationExceptionAsJson.php
+#update App\Exceptions\Handler::class
+#update routes/api.php
+./vendor/bin/pest --filter "DeleteArticleTest"
 ```

@@ -15,7 +15,7 @@ it('should successfully delete an article', function () {
         $article->author,
     )->assertOk();
 
-    expect(Article::findOrFail($article->id))->toBeNull();
+    expect(Article::find($article->id))->toBeNull();
 });
 
 it('should reject delete attempt when user is not an author', function () {

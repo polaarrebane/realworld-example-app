@@ -23,6 +23,7 @@ use Spatie\Sluggable\SlugOptions;
  * @property User $author
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property int $author_id
  */
 class Article extends Model
 {
