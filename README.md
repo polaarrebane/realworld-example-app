@@ -175,4 +175,14 @@ php artisan make:data UpdateArticle -N Http/RequestData -s RequestData
 php artisan pest:test Profile/GetProfileTest.php
 php artisan pest:test Profile/FollowProfileTest.php
 php artisan pest:test Profile/UnfollowProfileTest.php
+
+php artisan make:model Profile 
+
+php artisan make:controller ProfileController
+php artisan make:resource ProfileResource
+
+#--- GetProfile
+#update App/Http/Controllers/ArticleController add @show
+#update routes/api.php
+./vendor/bin/pest --filter "GetProfileTest"
 ```
