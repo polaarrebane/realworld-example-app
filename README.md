@@ -232,3 +232,8 @@ php artisan make:resource CommentCollection
 
 ./vendor/bin/pest --group "Comment"
 ```
+
+### Tag
+```bash
+php artisan pest:test Tag/GetAllTagsTest.php
+```

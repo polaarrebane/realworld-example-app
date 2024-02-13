@@ -11,3 +11,4 @@ uses()->group('User')->in('Feature/User/*');
 uses()->group('Article')->in('Feature/Article/*');
 uses()->group('Profile')->in('Feature/Profile/*');
 uses()->group('Comment')->in('Feature/Comment/*');
+uses()->group('Comment')->in('Feature/Tag/*');
