@@ -26,6 +26,7 @@ Route::namespace('Api')
         Route::namespace('Articles')->name('articles.')->prefix('articles')
             ->middleware('protected')->group(function () {
                 Route::post('', [ArticleController::class, 'store'])->name('create');
+                Route::put('{article:slug}', [ArticleController::class, 'update'])->name('update');
                 Route::delete('{article:slug}', [ArticleController::class, 'destroy'])->name('delete');
 
                 Route::post('{article:slug}/favorite', [ArticleController::class, 'favorite'])->name('favorite');

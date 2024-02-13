@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\RequestData\CreateArticleRequestData;
 use App\Http\RequestData\GetAllArticlesRequestData;
 use App\Http\RequestData\GetFeedRequestData;
+use App\Http\RequestData\UpdateArticleRequestData;
 use App\Http\Resources\ArticleCollection;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
@@ -63,6 +64,16 @@ class ArticleController extends Controller
         $tagIds = collect($requestData->tagList)
             ->transform(fn ($tag) => Tag::firstOrCreate(['value' => $tag])->id); // @phpstan-ignore-line
         $article->tags()->sync($tagIds);
+
+        return new ArticleResource($article);
+    }
+
+    public function update(Article $article, Request $request): ArticleResource
+    {
+        $requestData = UpdateArticleRequestData::from($request);
+
+        $this->authorize('update', $article);
+        $article->update($requestData->all());
 
         return new ArticleResource($article);
     }

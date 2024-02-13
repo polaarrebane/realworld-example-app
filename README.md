@@ -160,4 +160,12 @@ php artisan make:data GetFeed -N Http/RequestData -s RequestData
 #update App/Http/Controllers/ArticleController add @feed
 #update routes/api.php
 ./vendor/bin/pest --filter "GetFeedTest"
+
+#--- UpdateArticle
+php artisan make:data UpdateArticle -N Http/RequestData -s RequestData
+#update App/Http/Controllers/ArticleController add @update
+#update routes/api.php
+./vendor/bin/pest --filter "UpdateArticleTest"
+
+./vendor/bin/pest --group "Article"
 ```
