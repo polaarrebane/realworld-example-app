@@ -33,5 +33,6 @@ Route::namespace('Api')
             })
             ->withoutMiddleware('protected')->group(function () {
                 Route::get('', [ArticleController::class, 'index'])->name('get');
+                Route::get('{article:slug}', [ArticleController::class, 'show'])->name('slug');
             });
     });

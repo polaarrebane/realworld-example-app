@@ -14,9 +14,6 @@ use Illuminate\Http\Response;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request): ArticleCollection
     {
         $requestData = GetAllArticlesRequestData::from($request);
@@ -30,6 +27,11 @@ class ArticleController extends Controller
             ->get();
 
         return new ArticleCollection($articles);
+    }
+
+    public function show(Article $article): ArticleResource
+    {
+        return new ArticleResource($article);
     }
 
     public function store(Request $request): ArticleResource
