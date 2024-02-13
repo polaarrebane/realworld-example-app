@@ -142,4 +142,11 @@ touch app/Exceptions/RenderAuthenticationExceptionAsJson.php
 #update App/Http/Controllers/ArticleController add @unfavorite
 #update routes/api.php
 ./vendor/bin/pest --filter "FavoriteArticleTest"
+
+#--- GetAllArticles
+php artisan make:data GetAllArticles -N Http/RequestData -s RequestData
+php artisan make:resource ArticleCollection
+#update App/Http/Controllers/ArticleController add @index
+#update routes/api.php
+./vendor/bin/pest --filter "GetAllArticlesTest"
 ```

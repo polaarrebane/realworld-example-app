@@ -30,5 +30,8 @@ Route::namespace('Api')
 
                 Route::post('{article:slug}/favorite', [ArticleController::class, 'favorite'])->name('favorite');
                 Route::delete('{article:slug}/favorite', [ArticleController::class, 'unfavorite'])->name('unfavorite');
+            })
+            ->withoutMiddleware('protected')->group(function () {
+                Route::get('', [ArticleController::class, 'index'])->name('get');
             });
     });

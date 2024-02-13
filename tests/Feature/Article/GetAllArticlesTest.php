@@ -29,7 +29,7 @@ it('should retrieve articles with specified offset and limit', function () {
         'offset' => $offset,
     ]));
 
-    $articles = Article::skip($offset)->take($limit);
+    $articles = Article::skip($offset)->take($limit)->get();
 
     expect($response->getStatusCode())->toBe(200)
         ->and($response['articles'])->toContainArticles($articles)

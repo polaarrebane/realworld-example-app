@@ -68,27 +68,27 @@ expect()->extend('toBeTokenForUser', function (User $user) {
 
 //<editor-fold desc="Article">
 /**
- * @return array<string, string|array<string,string>>
+ * @return array<string, string|bool|int|array<string,string|bool>>
  */
 function articleToArray(Article $article, ?User $author = null): array
 {
     $author = $author ?? $article->author;
 
     return [
-        'slug' => (string) $article->slug,
-        'title' => (string) $article->title,
-        'description' => (string) $article->description,
-        'body' => (string) $article->body,
+        'slug' => $article->slug,
+        'title' => $article->title,
+        'description' => $article->description,
+        'body' => $article->body,
         'tagList' => $article->tags()->pluck('value')->sort()->values()->toArray(),
         'createdAt' => (string) $article->created_at->toISOString(),
         'updatedAt' => (string) $article->updated_at->toISOString(),
-        'favorited' => (string) (auth()->user()?->isFavorited($article) ?? false),
-        'favoritesCount' => (string) $article->favoritesCount,
+        'favorited' => auth()->user()?->isFavorited($article) ?? false,
+        'favoritesCount' => $article->favoritesCount,
         'author' => [
-            'username' => (string) $author->username,
-            'bio' => (string) $author->bio,
-            'image' => (string) $author->image,
-            'following' => (string) (auth()->user()?->isFollowing($author) ?? false),
+            'username' => $author->username,
+            'bio' => $author->bio,
+            'image' => $author->image,
+            'following' => (auth()->user()?->isFollowing($author) ?? false),
         ],
     ];
 }
@@ -118,9 +118,9 @@ expect()->extend('toContainFeedForUser', function (User $currentUser, ?int $offs
         ->skip($offset ?? 0)
         ->take($limit ?? 20)
         ->get()
-        ->transform(fn (Article $article) => articleToArray($article)); /** @phpstan-ignore-line */
+        ->transform(fn (Article $article) => articleToArray($article)); // @phpstan-ignore-line
     $articleArray
-        ->each(fn (array $article) => expect($this->value)->toContain($article)); /** @phpstan-ignore-line */
+        ->each(fn (array $article) => expect($this->value)->toContain($article)); // @phpstan-ignore-line
 
     return $this;
 });

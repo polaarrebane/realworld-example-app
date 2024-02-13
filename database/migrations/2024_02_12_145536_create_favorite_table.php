@@ -10,6 +10,8 @@ return new class() extends Migration
 
     protected const string USERS_TABLE_NAME = 'users';
 
+    protected const string ARTICLES_TABLE_NAME = 'articles';
+
     /**
      * Run the migrations.
      */
@@ -28,7 +30,7 @@ return new class() extends Migration
 
             $table->foreign('article_id')
                 ->references('id')
-                ->on(self::USERS_TABLE_NAME)
+                ->on(self::ARTICLES_TABLE_NAME)
                 ->onDelete('cascade');
         });
     }
