@@ -236,4 +236,9 @@ php artisan make:resource CommentCollection
 ### Tag
 ```bash
 php artisan pest:test Tag/GetAllTagsTest.php
+php artisan make:controller TagController
+#update routes/api.php
+./vendor/bin/pest --filter "GetAllTagsTest"
+
+./vendor/bin/pest --group "Tag"
 ```
