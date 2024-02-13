@@ -8,10 +8,9 @@ use function Pest\Laravel\putJson;
 
 const API_ARTICLES_UPDATE = 'api.articles.update';
 
-it('should successfully update an article', function () {
+it('should successfully update an article', function ($rawRequestData) {
     /** @var Article $article */
     $article = Article::factory()->create();
-    $rawRequestData = rawArticleUpdateRequest();
 
     $response = putJsonAsUser(
         route(API_ARTICLES_UPDATE, [$article]),
@@ -22,7 +21,12 @@ it('should successfully update an article', function () {
     $article->refresh();
 
     $response->assertOk()->assertJson(['article' => articleToArray($article)]);
-});
+})->with([
+    'All fields' => [rawArticleUpdateRequest()],
+    'Title' => [['title' => rawArticleUpdateRequest()['title']]],
+    'Description' => [['description' => rawArticleUpdateRequest()['description']]],
+    'Body' => [['description' => rawArticleUpdateRequest()['body']]],
+]);
 
 it('it should reject update attempt when non-author user tries to update', function () {
     $user = User::factory()->create();
