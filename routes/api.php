@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -48,5 +49,11 @@ Route::namespace('Api')
             })
             ->withoutMiddleware('protected')->group(function () {
                 Route::get('{user:username}', [ProfileController::class, 'show'])->name('get');
+            });
+
+        // COMMENTS
+        Route::namespace('Comments')->name('articles.comments.')->prefix('articles')
+            ->middleware('protected')->group(function () {
+                Route::post('{article:slug}/comments', [CommentController::class, 'store'])->name('create');
             });
     });
