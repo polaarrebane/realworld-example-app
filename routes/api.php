@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,5 +63,11 @@ Route::namespace('Api')
             })
             ->withoutMiddleware('protected')->group(function () {
                 Route::get('{article:slug}/comments', [CommentController::class, 'index'])->name('get');
+            });
+
+        // TAGS
+        Route::namespace('Tags')->name('tags.')->prefix('tags')
+            ->withoutMiddleware('protected')->group(function () {
+                Route::get('', [TagController::class, 'index'])->name('get');
             });
     });
