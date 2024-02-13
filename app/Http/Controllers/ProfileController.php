@@ -18,4 +18,11 @@ class ProfileController extends Controller
 
         return new ProfileResource($user);
     }
+
+    public function unfollow(User $user): ProfileResource
+    {
+        $user->followers()->detach(auth()->user());
+
+        return new ProfileResource($user);
+    }
 }
