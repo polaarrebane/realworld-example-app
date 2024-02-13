@@ -199,7 +199,6 @@ php artisan make:resource ProfileResource
 ./vendor/bin/pest --group "Profile"
 ```
 
-
 ### Comment
 ```bash
 php artisan pest:test Comment/GetAllCommentsTest.php
@@ -224,4 +223,12 @@ php artisan make:policy CommentPolicy
 #update App/Http/Controllers/ArticleController add @destroy
 #update routes/api.php
 ./vendor/bin/pest --filter "DeleteCommentTest"
+
+#--- GetAllComments
+php artisan make:resource CommentCollection
+#update App/Http/Controllers/ArticleController add @index
+#update routes/api.php
+./vendor/bin/pest --filter "GetAllCommentsTest"
+
+./vendor/bin/pest --group "Comment"
 ```

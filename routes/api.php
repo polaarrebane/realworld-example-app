@@ -59,5 +59,8 @@ Route::namespace('Api')
                     '{article:slug}/comments/{comment:id}',
                     [CommentController::class, 'destroy']
                 )->name('delete');
+            })
+            ->withoutMiddleware('protected')->group(function () {
+                Route::get('{article:slug}/comments', [CommentController::class, 'index'])->name('get');
             });
     });
