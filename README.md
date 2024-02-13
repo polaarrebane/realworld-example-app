@@ -154,4 +154,10 @@ php artisan make:resource ArticleCollection
 #update App/Http/Controllers/ArticleController add @show
 #update routes/api.php
 ./vendor/bin/pest --filter "GetArticleBySlugTest"
+
+#--- GetFeed
+php artisan make:data GetFeed -N Http/RequestData -s RequestData
+#update App/Http/Controllers/ArticleController add @feed
+#update routes/api.php
+./vendor/bin/pest --filter "GetFeedTest"
 ```

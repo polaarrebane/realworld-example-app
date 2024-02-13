@@ -36,9 +36,11 @@ it('should retrieve feed with specified offset and limit', function () {
         $currentUser
     );
 
+    $feed = Article::feed($currentUser)->take($limit)->skip($offset)->get();
+
     expect($response->getStatusCode())->toBe(200)
         ->and($response['articles'])->toContainFeedForUser($currentUser, $offset, $limit)
-        ->and($response['articlesCount'])->toBe(Article::feed($currentUser)->skip($offset)->take($limit)->count());
+        ->and($response['articlesCount'])->toBe($feed->count());
 });
 
 it('should return an error if no token is provided', function () {

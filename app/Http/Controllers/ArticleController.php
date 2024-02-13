@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\RequestData\CreateArticleRequestData;
 use App\Http\RequestData\GetAllArticlesRequestData;
+use App\Http\RequestData\GetFeedRequestData;
 use App\Http\Resources\ArticleCollection;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
@@ -17,11 +18,27 @@ class ArticleController extends Controller
     public function index(Request $request): ArticleCollection
     {
         $requestData = GetAllArticlesRequestData::from($request);
+
         $articles = Article::filtered(
             tag: is_string($requestData->tag) ? $requestData->tag : null,
             author: is_string($requestData->author) ? $requestData->author : null,
             favorited: is_string($requestData->favorited) ? $requestData->favorited : null,
         )
+            ->skip(is_int($requestData->offset) ? $requestData->offset : 0)
+            ->take(is_int($requestData->limit) ? $requestData->limit : 20)
+            ->get();
+
+        return new ArticleCollection($articles);
+    }
+
+    public function feed(Request $request): ArticleCollection
+    {
+        /** @var User $currentUser */
+        $currentUser = auth('api')->user();
+
+        $requestData = GetFeedRequestData::from($request);
+
+        $articles = Article::feed($currentUser)
             ->skip(is_int($requestData->offset) ? $requestData->offset : 0)
             ->take(is_int($requestData->limit) ? $requestData->limit : 20)
             ->get();
