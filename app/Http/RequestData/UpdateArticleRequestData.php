@@ -4,18 +4,19 @@ namespace App\Http\RequestData;
 
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
 
 class UpdateArticleRequestData extends Data
 {
     public function __construct(
         #[MapInputName('article.title')]
-        public readonly string $title,
+        public readonly string|Optional $title,
 
         #[MapInputName('article.description')]
-        public readonly string $description,
+        public readonly string|Optional $description,
 
         #[MapInputName('article.body')]
-        public readonly string $body,
+        public readonly string|Optional $body,
     ) {
     }
 
