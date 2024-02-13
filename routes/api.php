@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,5 +38,11 @@ Route::namespace('Api')
             ->withoutMiddleware('protected')->group(function () {
                 Route::get('', [ArticleController::class, 'index'])->name('get');
                 Route::get('{article:slug}', [ArticleController::class, 'show'])->name('slug');
+            });
+
+        // PROFILES
+        Route::namespace('Profiles')->name('profiles.')->prefix('profiles')
+            ->withoutMiddleware('protected')->group(function () {
+                Route::get('{user:username}', [ProfileController::class, 'show'])->name('get');
             });
     });
