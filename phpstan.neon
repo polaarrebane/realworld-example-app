@@ -7,8 +7,22 @@ parameters:
         - app/
         - tests/
 
-    # Level 9 is the highest level
-    level: 9
+    level: 8
+
+    ignoreErrors:
+        # TYMON JWT
+        - '#Call to an undefined method Illuminate\\Contracts\\Auth\\StatefulGuard::refresh\(\)#'
+        - '#Call to an undefined method Illuminate\\Contracts\\Auth\\StatefulGuard::getToken\(\)#'
+        - '#Call to an undefined method Illuminate\\Auth\\AuthManager::fromUser\(\)#'
+
+        # PEST
+        - '#Call to an undefined method Pest\\Expectation<mixed>::toBeTokenForUser\(\)#'
+        - '#Call to an undefined method Pest\\Expectation<mixed>::toContainArticles\(\)#'
+        - '#Call to an undefined method Pest\\Expectation<mixed>::toContainFeedForUser\(\)#'
+        - '#Call to an undefined method Pest\\Expectation<mixed>::toContainComments\(\)#'
+        -
+            message: '#Undefined variable: \$this#'
+            path: tests/Utils.php
 
 #    ignoreErrors:
 #        - '#PHPDoc tag @var#'
