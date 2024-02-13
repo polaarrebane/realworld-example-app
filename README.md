@@ -185,4 +185,9 @@ php artisan make:resource ProfileResource
 #update App/Http/Controllers/ArticleController add @show
 #update routes/api.php
 ./vendor/bin/pest --filter "GetProfileTest"
+
+#--- FollowProfile
+#update App/Http/Controllers/ArticleController add @follow
+#update routes/api.php
+./vendor/bin/pest --filter "FollowProfileTest"
 ```

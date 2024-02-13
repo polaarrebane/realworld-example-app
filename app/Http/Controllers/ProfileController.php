@@ -11,4 +11,11 @@ class ProfileController extends Controller
     {
         return new ProfileResource($user);
     }
+
+    public function follow(User $user): ProfileResource
+    {
+        $user->followers()->attach(auth()->user());
+
+        return new ProfileResource($user);
+    }
 }

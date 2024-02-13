@@ -42,6 +42,9 @@ Route::namespace('Api')
 
         // PROFILES
         Route::namespace('Profiles')->name('profiles.')->prefix('profiles')
+            ->middleware('protected')->group(function () {
+                Route::post('{user:username}/follow', [ProfileController::class, 'follow'])->name('follow');
+            })
             ->withoutMiddleware('protected')->group(function () {
                 Route::get('{user:username}', [ProfileController::class, 'show'])->name('get');
             });
