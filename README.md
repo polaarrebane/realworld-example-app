@@ -1,6 +1,15 @@
+![PHP version](https://img.shields.io/badge/php-8.3-777bb3.svg?logo=php)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![sponsored](https://pride-badges.pony.workers.dev/static/v1?label=Sponsored+by+the+Gay+Agenda&labelColor=%23555&stripeWidth=8&stripeColors=E40303%2CFF8C00%2CFFED00%2C008026%2C24408E%2C732982)
+
+![pest](https://github.com/polaarrebane/realworld-example-app/actions/workflows/apidog.yml/badge.svg)
+![pest](https://github.com/polaarrebane/realworld-example-app/actions/workflows/lint.yml/badge.svg)
+![pest](https://github.com/polaarrebane/realworld-example-app/actions/workflows/pest.yml/badge.svg)
+
+
 # RealWorld Example App - Laravel 10 Backend
 
-This project represents the backend implementation for the RealWorld application using the Laravel 10 framework.
+This project represents the backend implementation for the [RealWorld](https://codebase.show/projects/realworld) using the Laravel 10 framework.
 
 ## Functionality
 
@@ -18,9 +27,40 @@ This application implements the core functionality of RealWorld:
 - Larastan is used for static analysis.
 - Pint is the chosen linter.
 
+## Installation & Run
+```bash
+composer install
+cp .env.example .env
+touch database/database.sqlite
+php artisan key:generate
+php artisan jwt:secret
+php artisan migrate
+php artisan serve
+```
+
+## Tests
+```bash
+./vendor/bin/pest
+apidog run tests/Api/conduit.apidog-cli.json  -r cli
+```
+
+## Code Quality
+```bash
+./vendor/bin/pint
+./vendor/bin/phpstan analyse --memory-limit=2G
+```
+
+## Dependencies
+* [jwt-auth](https://jwt-auth.readthedocs.io/)
+* [laravel-sluggable](https://github.com/spatie/laravel-sluggable)
+* [laravel-data](https://spatie.be/docs/laravel-data)
+
 ## Development Steps
 
 Below are the sequential steps followed during the project's development
+
+<details>
+  <summary>Details</summary>
 
 ### Initial
 ```bash
@@ -242,3 +282,4 @@ php artisan make:controller TagController
 
 ./vendor/bin/pest --group "Tag"
 ```
+</details>

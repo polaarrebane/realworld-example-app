@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "polaarrebane/realworld",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "This project represents the backend implementation for the RealWorld using the Laravel 10 framework.",
+    "keywords": ["laravel", "framework", "realworld"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.3",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
