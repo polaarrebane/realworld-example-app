@@ -218,4 +218,10 @@ php artisan make:data CreateComment -N Http/RequestData -s RequestData
 #update App/Http/Controllers/ArticleController add @store
 #update routes/api.php
 ./vendor/bin/pest --filter "CreateCommentTest"
+
+#--- DeleteComment
+php artisan make:policy CommentPolicy
+#update App/Http/Controllers/ArticleController add @destroy
+#update routes/api.php
+./vendor/bin/pest --filter "DeleteCommentTest"
 ```

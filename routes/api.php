@@ -55,5 +55,9 @@ Route::namespace('Api')
         Route::namespace('Comments')->name('articles.comments.')->prefix('articles')
             ->middleware('protected')->group(function () {
                 Route::post('{article:slug}/comments', [CommentController::class, 'store'])->name('create');
+                Route::delete(
+                    '{article:slug}/comments/{comment:id}',
+                    [CommentController::class, 'destroy']
+                )->name('delete');
             });
     });
