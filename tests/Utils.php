@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Article;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Testing\TestResponse;
@@ -124,4 +125,60 @@ expect()->extend('toContainFeedForUser', function (User $currentUser, ?int $offs
 
     return $this;
 });
+//</editor-fold>
+
+//<editor-fold desc="Comment">
+/**
+ * @return array<string, int|string|array<string,string|bool>>
+ */
+function commentToArray(Comment $comment, ?User $author = null)
+{
+    $author = $author ?? $comment->author;
+
+    return [
+        'id' => $comment->id,
+        'createdAt' => (string) $comment->created_at->toISOString(),
+        'updatedAt' => (string) $comment->updated_at->toISOString(),
+        'body' => $comment->body,
+        'author' => [
+            'username' => $author->username,
+            'bio' => $author->bio,
+            'image' => $author->image,
+            'following' => auth()->user()?->isFollowing($author) ?? false,
+        ],
+    ];
+}
+
+expect()->extend('toContainComments', function (Collection $comments) {
+    $comments
+        ->transform(fn (Comment $comment) => commentToArray($comment))
+        ->each(
+            fn (array $comment) => expect($this->value)->toContain($comment)
+        );
+
+    return $this;
+});
+
+expect()->extend('notToContainComments', function (Collection $comments) {
+    $comments
+        ->transform(fn (Comment $comment) => commentToArray($comment))
+        ->each(
+            fn (array $comment) => expect($this->value)->not()->toContain($comment)
+        );
+
+    return $this;
+});
+
+/**
+ * @return string[]
+ */
+function rawCommentCreateRequest(): array
+{
+    /** @var string $body */
+    $body = fake()->paragraphs(asText: true);
+
+    return [
+        'body' => $body,
+    ];
+}
 //</editor-fold>

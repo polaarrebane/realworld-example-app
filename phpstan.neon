@@ -19,6 +19,7 @@ parameters:
         - '#Call to an undefined method Pest\\Expectation<mixed>::toBeTokenForUser\(\)#'
         - '#Call to an undefined method Pest\\Expectation<mixed>::toContainArticles\(\)#'
         - '#Call to an undefined method Pest\\Expectation<mixed>::toContainFeedForUser\(\)#'
+        - '#Call to an undefined method Pest\\Expectation<mixed>::toContainComments\(\)#'
         -
             message: '#Undefined variable: \$this#'
             path: tests/Utils.php

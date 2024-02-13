@@ -198,3 +198,11 @@ php artisan make:resource ProfileResource
 
 ./vendor/bin/pest --group "Profile"
 ```
+
+
+### Comment
+```bash
+php artisan pest:test Comment/GetAllCommentsTest.php
+php artisan pest:test Comment/CreateCommentTest.php
+php artisan pest:test Comment/DeleteCommentTest.php
+```
