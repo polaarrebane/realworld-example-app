@@ -190,4 +190,11 @@ php artisan make:resource ProfileResource
 #update App/Http/Controllers/ArticleController add @follow
 #update routes/api.php
 ./vendor/bin/pest --filter "FollowProfileTest"
+
+#--- UnfollowProfile
+#update App/Http/Controllers/ArticleController add @unfollow
+#update routes/api.php
+./vendor/bin/pest --filter "UnfollowProfileTest"
+
+./vendor/bin/pest --group "Profile"
 ```
