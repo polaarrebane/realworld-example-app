@@ -9,3 +9,4 @@ uses(
 
 uses()->group('User')->in('Feature/User/*');
 uses()->group('Article')->in('Feature/Article/*');
+uses()->group('Profile')->in('Feature/Profile/*');

@@ -169,3 +169,10 @@ php artisan make:data UpdateArticle -N Http/RequestData -s RequestData
 
 ./vendor/bin/pest --group "Article"
 ```
+
+### Profile
+```bash
+php artisan pest:test Profile/GetProfileTest.php
+php artisan pest:test Profile/FollowProfileTest.php
+php artisan pest:test Profile/UnfollowProfileTest.php
+```
