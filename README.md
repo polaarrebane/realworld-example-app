@@ -205,4 +205,17 @@ php artisan make:resource ProfileResource
 php artisan pest:test Comment/GetAllCommentsTest.php
 php artisan pest:test Comment/CreateCommentTest.php
 php artisan pest:test Comment/DeleteCommentTest.php
+
+#update App/Models/Comment
+php artisan make:migration CreateCommentsTable
+php artisan migrate
+php artisan make:factory CommentFactory
+php artisan make:controller CommentController
+php artisan make:resource CommentResource
+
+#--- CreateComment
+php artisan make:data CreateComment -N Http/RequestData -s RequestData
+#update App/Http/Controllers/ArticleController add @store
+#update routes/api.php
+./vendor/bin/pest --filter "CreateCommentTest"
 ```

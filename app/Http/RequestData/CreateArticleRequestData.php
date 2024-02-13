@@ -28,7 +28,7 @@ class CreateArticleRequestData extends Data
     /**
      * @return array<string, string[]>
      */
-    public static function rules()
+    public static function rules(): array
     {
         return [
             'article.title' => ['required', 'string'],
